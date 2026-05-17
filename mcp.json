@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "uvx",
+      "args": ["mcp-server-filesystem", "--allowed-directory", "/home/ahmed/Documents/bigapps/bigapps-front"]
+    },
+    "bash": {
+      "command": "uvx",
+      "args": ["mcp-server-bash"]
+    },
+    "websearch": {
+      "command": "uvx",
+      "args": ["mcp-server-websearch"]
+    },
+    "codesearch": {
+      "command": "uvx",
+      "args": ["mcp-server-exa", "--type", "code"]
+    }
+  }
+}

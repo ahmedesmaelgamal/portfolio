@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Surfaces — dark default */
+    --color-bg: #0c1a1e;
+    --color-surface: #132226;
+    --color-surface-alt: #1c2e33;
+    --color-border: #2a3f45;
+    --color-border-subtle: #1e3338;
+
+    /* Text */
+    --color-foreground: #e0eaed;
+    --color-body: #a8c0c8;
+    --color-muted: #6b8a91;
+
+    /* Accent */
+    --color-accent: #00d4aa;
+    --color-accent-dim: #00a884;
+    --color-accent-warm: #f5c542;
+
+    /* Motion */
+    --ease-expo-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-expo-in-out: cubic-bezier(0.86, 0, 0.07, 1);
+    --duration-fast: 200ms;
+    --duration-normal: 400ms;
+    --duration-slow: 600ms;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: rgba(0, 212, 170, 0.15);
+    color: var(--color-foreground);
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--color-bg); }
+  ::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-muted); }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto w-full max-w-[68rem] px-5 md:px-8;
+  }
+
+  .container-narrow {
+    @apply mx-auto w-full max-w-[42rem] px-5 md:px-8;
+  }
+
+  .section-pad {
+    @apply py-24 md:py-32;
+  }
+
+  .section-pad-sm {
+    @apply py-16 md:py-20;
+  }
+
+  /* Typography */
+  .heading-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--color-foreground);
+  }
+
+  .heading-section {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--color-foreground);
+  }
+
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .text-body {
+    font-size: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
+    line-height: 1.7;
+    color: var(--color-body);
+  }
+
+  .text-muted {
+    color: var(--color-muted);
+  }
+
+  /* Links */
+  .link {
+    color: var(--color-accent);
+    transition: color var(--duration-fast) var(--ease-expo-out);
+  }
+  .link:hover {
+    color: var(--color-foreground);
+  }
+
+  /* Tags / Chips */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    background: rgba(0, 212, 170, 0.08);
+    color: var(--color-accent);
+    border: 1px solid rgba(0, 212, 170, 0.12);
+  }
+
+  .tag-neutral {
+    background: var(--color-surface-alt);
+    color: var(--color-muted);
+    border: 1px solid var(--color-border);
+  }
+
+  /* Card */
+  .card {
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-surface);
+    transition:
+      border-color var(--duration-normal) var(--ease-expo-out),
+      transform var(--duration-normal) var(--ease-expo-out);
+  }
+  .card:hover {
+    border-color: rgba(0, 212, 170, 0.25);
+    transform: translateY(-2px);
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    width: 100%;
+    background: var(--color-border);
+  }
+}
+
+@layer utilities {
+  /* Reveal animations */
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+    transition:
+      opacity var(--duration-slow) var(--ease-expo-out),
+      transform var(--duration-slow) var(--ease-expo-out);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translate3d(-30px, 0, 0);
+    transition:
+      opacity var(--duration-slow) var(--ease-expo-out),
+      transform var(--duration-slow) var(--ease-expo-out);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  .reveal-left.visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .stagger > *:nth-child(1) { --reveal-delay: 0ms; }
+  .stagger > *:nth-child(2) { --reveal-delay: 80ms; }
+  .stagger > *:nth-child(3) { --reveal-delay: 160ms; }
+  .stagger > *:nth-child(4) { --reveal-delay: 240ms; }
+  .stagger > *:nth-child(5) { --reveal-delay: 320ms; }
+  .stagger > *:nth-child(6) { --reveal-delay: 400ms; }
+  .stagger > *:nth-child(7) { --reveal-delay: 480ms; }
+  .stagger > *:nth-child(8) { --reveal-delay: 560ms; }
+
+  /* Blur-in for hero */
+  .blur-in {
+    animation: blurIn 1s var(--ease-expo-out) forwards;
+  }
+  .blur-in-delay-1 {
+    opacity: 0;
+    animation: blurIn 1s var(--ease-expo-out) 0.15s forwards;
+  }
+  .blur-in-delay-2 {
+    opacity: 0;
+    animation: blurIn 1s var(--ease-expo-out) 0.3s forwards;
+  }
+  .blur-in-delay-3 {
+    opacity: 0;
+    animation: blurIn 1s var(--ease-expo-out) 0.45s forwards;
+  }
+  .blur-in-delay-4 {
+    opacity: 0;
+    animation: blurIn 1s var(--ease-expo-out) 0.6s forwards;
+  }
+
+  @keyframes blurIn {
+    from { opacity: 0; filter: blur(8px); transform: translateY(12px); }
+    to { opacity: 1; filter: blur(0); transform: translateY(0); }
+  }
+
+  /* Cursor blink */
+  .cursor-blink {
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .reveal, .reveal-left {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+}
