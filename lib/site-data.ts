@@ -2,7 +2,7 @@ export const site = {
   name: "Ahmed Ismail",
   role: "Backend Engineer",
   email: "ahmedesmaelgamal@gmail.com",
-  phone: "+20 112 601 5027",
+  phone: "+20 110 467 5755",
   location: "Menofia, Egypt",
   availability: "Open to work",
   links: {
